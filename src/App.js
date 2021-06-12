@@ -1,23 +1,77 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { useState } from 'react'
+import Home from './components/Home'
+import Signup from './components/Signup'
+import Signin from './components/Signin'
 function App() {
+  const [ show, setShow ] = useState('signup')
+  const [ jwt, setJwt ] = useState()
+  const [ error, setError ] = useState()
+  const [ isLoading, setIsLoading ] = useState()
+
+  const toggleShow = () => {
+    if (show === 'signup') {
+      setShow('signin')
+    } else {
+      setShow('signup')
+    }
+  }
+
+  const signUp = (params) => {
+    fetch('http://localhost:4000/sign-up', {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(body => {
+      if (body.error) {
+        setError(body.error)
+      } else {
+        setError()
+        setJwt(body.jwt)
+      }
+    })
+  }
+
+
+  const signIn = (params) => {
+    fetch('http://localhost:4000/sign-in', {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(body => {
+      if (body.error) {
+        setError(body.error)
+      } else {
+        setError()
+        setJwt(body.jwt)
+      }
+    })
+  }
+
+  const renderComponent = () => {
+    if (jwt) {
+      return <Home/>
+    } else if (show === 'signup') {
+      return <Signup onToggle={toggleShow} onSubmit={signUp} />
+    } else if (show === 'signin') {
+      return <Signin onToggle={toggleShow} onSubmit={signIn} />
+    }
+  }
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { renderComponent() }
+      <p>{error}</p>
     </div>
   );
 }
