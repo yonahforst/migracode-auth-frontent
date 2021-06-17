@@ -6,21 +6,15 @@ export default function Signin(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
-    props.onSubmit({
-      email,
-      password,
-    })
   }
 
-  const handleToggle = (event) => {
+  const onSignup = (event) => {
     event.preventDefault()
-    props.onToggle()
   }
 
   return (
     <div className='centerContainer'>
-    
+      <h1>Sign in</h1>
       <form onSubmit={handleSubmit}>
         <p>Email</p>
         <input value={email} onChange={e => setEmail(e.target.value)}/>
@@ -28,7 +22,7 @@ export default function Signin(props) {
         <input value={password} type='password' onChange={e => setPassword(e.target.value)}/>
         <br/>
         <button>Sign in</button>
-        <p>Don't have an account? <a href='/#' onClick={handleToggle}>Signup</a></p>
+        <p>Don't have an account? <a href='/#' onClick={onSignup}>Sign up</a></p>
 
       </form>
 

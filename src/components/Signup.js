@@ -5,21 +5,17 @@ export default function Signup(props) {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
-  const handleSubmit = () => {
-    props.onSubmit({
-      name,
-      email,
-      password,
-    })
+  const handleSubmit = (event) => {
+    event.preventDefault()
   }
 
-  const handleToggle = (event) => {
+  const onSignin = (event) => {
     event.preventDefault()
-    props.onToggle()
   }
 
   return (
     <div className='centerContainer'>
+      <h1>Sign up</h1>
       <form onSubmit={handleSubmit}>
         <p>Name</p>
         <input value={name} onChange={e => setName(e.target.value)}/>
@@ -28,8 +24,8 @@ export default function Signup(props) {
         <p>Password</p>
         <input value={password} type='password' onChange={e => setPassword(e.target.value)}/>
         <br/>
-        <button>Signup</button>
-        <p>Already have an account? <a href='/#' onClick={handleToggle}>Login</a></p>
+        <button>Sign up</button>
+        <p>Already have an account? <a href='/#' onClick={onSignin}>Sign in</a></p>
       </form>
     </div>
   )
