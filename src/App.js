@@ -5,7 +5,7 @@ import Signup from './components/Signup'
 import Signin from './components/Signin'
 
 function App() {
-  const [ path, setPath ] = useState('home')
+  const [ path, setPath ] = useState('signup')
 
   return (
     <div className="App">

@@ -10,6 +10,7 @@ export default function Signin(props) {
 
   const onSignup = (event) => {
     event.preventDefault()
+    props.navigate('signup')
   }
 
   return (
